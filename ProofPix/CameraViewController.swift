@@ -125,15 +125,43 @@ class CameraViewController: UIViewController {
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
     
+
+    func cropImage(_ inputImage: UIImage, toRect cropRect: CGRect) -> UIImage?
+    {
+
+
+        // Scale cropRect to handle images larger than shown-on-screen size
+        let cropZone = CGRect(x:cropRect.origin.x * inputImage.scale,
+                              y:cropRect.origin.y * inputImage.scale,
+                              width:cropRect.size.width * inputImage.scale,
+                              height:cropRect.size.height * inputImage.scale)
+
+
+        // Perform cropping in Core Graphics
+        guard let cutImageRef: CGImage = inputImage.cgImage?.cropping(to:cropZone)
+        else {
+            return nil
+        }
+
+
+        // Return image to UIImage
+        let croppedImage: UIImage = UIImage(cgImage: cutImageRef, scale: inputImage.scale, orientation: .up)
+        return croppedImage
+    }
+    
     public func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        print(photo.metadata)
         guard let imageData = photo.fileDataRepresentation(),
             let image = UIImage(data: imageData) else {
             print("Image capture failed")
             captureCompletion?(nil, error)
             return
         }
-        captureCompletion?(image, nil)
+        guard let croppedImage = cropImage(image, toRect: CGRect(x: 0, y: image.size.height / 2 - image.size.width / 2, width: image.size.width, height: image.size.width)) else {
+            print("Failed to crop image")
+            return
+        }
+        let resizedImage = UIImage(cgImage: (croppedImage.cgImage?.resize(size: CGSize(width: 256, height: 256))!)!, scale: image.scale, orientation: .right)
+        captureCompletion?(resizedImage, nil)
     }
 }
 
@@ -149,3 +177,21 @@ struct HostedCameraViewController: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: CameraViewController, context: Context) { }
 }
 
+extension CGImage {
+    func resize(size:CGSize) -> CGImage? {
+        let width: Int = Int(size.width)
+        let height: Int = Int(size.height)
+
+        let bytesPerPixel = self.bitsPerPixel / self.bitsPerComponent
+        let destBytesPerRow = width * bytesPerPixel
+
+
+        guard let colorSpace = self.colorSpace else { return nil }
+        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: self.bitsPerComponent, bytesPerRow: destBytesPerRow, space: colorSpace, bitmapInfo: self.alphaInfo.rawValue) else { return nil }
+
+        context.interpolationQuality = .high
+        context.draw(self, in: CGRect(x: 0, y: 0, width: width, height: height))
+
+        return context.makeImage()
+    }
+}

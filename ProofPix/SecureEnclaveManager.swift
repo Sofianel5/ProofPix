@@ -68,7 +68,13 @@ class SecureEnclaveManager {
             // Some other error occurred, handle it
             print("Failed to check if key pair exists")
         } else {
-            print("Key pair already exists")
+            print("Key pair already exists!")
+            guard let publicKey = SecKeyCopyPublicKey(item as! SecKey) else {
+                // Handle the error here
+                print("Failed to retrieve public key")
+                return
+            }
+            print("Public key was retrieved: \(publicKey)")
         }
     }
     
