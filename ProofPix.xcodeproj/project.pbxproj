@@ -16,6 +16,7 @@
 		D8BAF7022B807E5700704DCA /* ProofPixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF7012B807E5700704DCA /* ProofPixTests.swift */; };
 		D8BAF70C2B807E5700704DCA /* ProofPixUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF70B2B807E5700704DCA /* ProofPixUITests.swift */; };
 		D8BAF70E2B807E5700704DCA /* ProofPixUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF70D2B807E5700704DCA /* ProofPixUITestsLaunchTests.swift */; };
+		D8BAF71C2B80853400704DCA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF71B2B80853400704DCA /* CameraViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		D8BAF7072B807E5700704DCA /* ProofPixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProofPixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8BAF70B2B807E5700704DCA /* ProofPixUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofPixUITests.swift; sourceTree = "<group>"; };
 		D8BAF70D2B807E5700704DCA /* ProofPixUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofPixUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D8BAF71A2B8082A500704DCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D8BAF71B2B80853400704DCA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +101,10 @@
 		D8BAF6EA2B807E5400704DCA /* ProofPix */ = {
 			isa = PBXGroup;
 			children = (
+				D8BAF71A2B8082A500704DCA /* Info.plist */,
 				D8BAF6EB2B807E5400704DCA /* ProofPixApp.swift */,
 				D8BAF6ED2B807E5400704DCA /* ContentView.swift */,
+				D8BAF71B2B80853400704DCA /* CameraViewController.swift */,
 				D8BAF6EF2B807E5600704DCA /* Assets.xcassets */,
 				D8BAF6F42B807E5600704DCA /* Persistence.swift */,
 				D8BAF6F62B807E5600704DCA /* ProofPix.xcdatamodeld */,
@@ -267,6 +272,7 @@
 				D8BAF6F52B807E5600704DCA /* Persistence.swift in Sources */,
 				D8BAF6EE2B807E5400704DCA /* ContentView.swift in Sources */,
 				D8BAF6EC2B807E5400704DCA /* ProofPixApp.swift in Sources */,
+				D8BAF71C2B80853400704DCA /* CameraViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,11 +434,13 @@
 				DEVELOPMENT_TEAM = JS2NN5XX7S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProofPix/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ProofPix;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -442,7 +450,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -457,11 +465,13 @@
 				DEVELOPMENT_TEAM = JS2NN5XX7S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ProofPix/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ProofPix;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -471,7 +481,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
