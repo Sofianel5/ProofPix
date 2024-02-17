@@ -126,6 +126,7 @@ class CameraViewController: UIViewController {
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
     
     public func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        print(photo.metadata)
         guard let imageData = photo.fileDataRepresentation(),
             let image = UIImage(data: imageData) else {
             print("Image capture failed")
