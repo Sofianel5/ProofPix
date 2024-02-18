@@ -8,6 +8,9 @@
 import Foundation
 
 class ProverManager {
+    
+    static let shared = ProverManager()
+    
     let url = URL(string: "http://3.231.228.92:9999")!;
     
     func proveImage(signature: Data?, image: Data?, publicKey: Data?) {
@@ -21,8 +24,11 @@ class ProverManager {
         request.addTextField(named: "signature", value: providedSignature.base64EncodedString())
         request.addTextField(named: "public_key", value: providedPublicKey.base64EncodedString())
         
-        URLSession.shared.dataTask(with: request, completionHandler: {_,_,_ in
-            
+        URLSession.shared.dataTask(with: request, completionHandler: {data,response,error in
+            if let error {
+                return
+            }
+            PersistenceController.shared.saveURL(url: String(decoding: data!, as: UTF8.self))
         }).resume()
     }
 }
