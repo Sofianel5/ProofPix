@@ -29,26 +29,43 @@ class ImageCaptureViewModel: ObservableObject {
 
 struct ContentView: View {
     @StateObject private var viewModel = ImageCaptureViewModel()
+    @State private var path = NavigationPath()
 
     var body: some View {
-        ZStack {
-            HostedCameraViewController(viewModel: viewModel)
-                .edgesIgnoringSafeArea(.all)
-            VStack {
-                Spacer()
-                Image(uiImage: viewModel.capturedImage ?? UIImage())
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 100)
-                Button(action: {
-                    viewModel.captureImage()
-                }) {
-                    Text("Capture Image")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(8)
-                }.padding()
+        NavigationStack(path: $path) {
+            ZStack {
+                HostedCameraViewController(viewModel: viewModel)
+                    .edgesIgnoringSafeArea(.all)
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        print("button pressed")
+                        path.append("ImageEditView")
+                    }) {
+                        Image(uiImage: viewModel.capturedImage ?? UIImage())
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 256, height: 256)
+                    }.navigationDestination(for: String.self) { string in
+                        switch string {
+                        case "ImageEditView":
+                            ImageEditView()
+                                .environmentObject(viewModel)
+
+                        default:
+                            Text("Unknown")
+                        }
+                    }
+                    Button(action: {
+                        viewModel.captureImage()
+                    }) {
+                        Text("Capture Image")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                    }.padding()
+                }
             }
         }
     }

@@ -18,6 +18,7 @@
 		D8BAF70E2B807E5700704DCA /* ProofPixUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF70D2B807E5700704DCA /* ProofPixUITestsLaunchTests.swift */; };
 		D8BAF71C2B80853400704DCA /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF71B2B80853400704DCA /* CameraViewController.swift */; };
 		D8BAF71E2B80C8C800704DCA /* SecureEnclaveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF71D2B80C8C700704DCA /* SecureEnclaveManager.swift */; };
+		D8E030C82B81881200ED6325 /* ImageEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8E030C72B81881200ED6325 /* ImageEditView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		D8BAF71A2B8082A500704DCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D8BAF71B2B80853400704DCA /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		D8BAF71D2B80C8C700704DCA /* SecureEnclaveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecureEnclaveManager.swift; sourceTree = "<group>"; };
+		D8E030C72B81881200ED6325 /* ImageEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				D8BAF6EB2B807E5400704DCA /* ProofPixApp.swift */,
 				D8BAF71D2B80C8C700704DCA /* SecureEnclaveManager.swift */,
 				D8BAF6ED2B807E5400704DCA /* ContentView.swift */,
+				D8E030C72B81881200ED6325 /* ImageEditView.swift */,
 				D8BAF71B2B80853400704DCA /* CameraViewController.swift */,
 				D8BAF6EF2B807E5600704DCA /* Assets.xcassets */,
 				D8BAF6F42B807E5600704DCA /* Persistence.swift */,
@@ -271,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8E030C82B81881200ED6325 /* ImageEditView.swift in Sources */,
 				D8BAF6F82B807E5600704DCA /* ProofPix.xcdatamodeld in Sources */,
 				D8BAF71E2B80C8C800704DCA /* SecureEnclaveManager.swift in Sources */,
 				D8BAF6F52B807E5600704DCA /* Persistence.swift in Sources */,
