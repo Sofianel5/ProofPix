@@ -20,64 +20,11 @@ struct ImageEditView: View {
             Spacer()
             HStack {
                 Spacer()
-                GeometryReader { viewGeo in
-                    GeometryReader { imgGeo in
-                        ZStack {
-                            Image(uiImage: viewModel.capturedImage ?? UIImage())
-                                .resizable()
-                                .scaledToFit()
-                                .onReceive(Just(imgGeo), perform: { _ in
-                                    let localFrame = imgGeo.frame(in: .local)
-                                    imageFrame = AVMakeRect(aspectRatio: (viewModel.capturedImage ?? UIImage()).size, insideRect: localFrame)
-                                })
-                            EVPointView()
-                                .position(evPointLocation)
-                                .gesture(DragGesture()
-                                    .onChanged { value in
-                                        if imageFrame.contains(value.location) {
-                                            self.evPointLocation = value.location
-                                        }
-                                    })
-                                .onAppear {
-                                    evPointLocation = CGPoint(x: imageFrame.origin.x, y: imageFrame.origin.y)
-                                }
-                            EVPointView()
-                                .position(evPointLocation)
-                                .gesture(DragGesture()
-                                    .onChanged { value in
-                                        if imageFrame.contains(value.location) {
-                                            self.evPointLocation = value.location
-                                        }
-                                    })
-                                .onAppear {
-                                    evPointLocation = CGPoint(x: imageFrame.origin.x + 50, y: imageFrame.origin.y)
-                                }
-                            EVPointView()
-                                .position(evPointLocation)
-                                .gesture(DragGesture()
-                                    .onChanged { value in
-                                        if imageFrame.contains(value.location) {
-                                            self.evPointLocation = value.location
-                                        }
-                                    })
-                                .onAppear {
-                                    evPointLocation = CGPoint(x: imageFrame.origin.x, y: imageFrame.origin.y + 50)
-                                }
-                            EVPointView()
-                                .position(evPointLocation)
-                                .gesture(DragGesture()
-                                    .onChanged { value in
-                                        if imageFrame.contains(value.location) {
-                                            self.evPointLocation = value.location
-                                        }
-                                    })
-                                .onAppear {
-                                    evPointLocation = CGPoint(x: imageFrame.origin.x + 50, y: imageFrame.origin.y + 50)
-                                }
-                        } //: ZStack
-                    } //: imgGeo
-                    .frame(width: viewGeo.size.width * 0.8, height: viewGeo.size.height * 0.8)
-                    .background(.black)
+                ZStack {
+                    Image(uiImage: viewModel.capturedImage ?? UIImage())
+                        .resizable()
+                        .scaledToFit()
+                    CustomDraggableComponent(height: (viewModel.capturedImage ?? UIImage()).size.height, width: (viewModel.capturedImage ?? UIImage()).size.width)
                 }
                 Spacer()
             }
@@ -95,15 +42,40 @@ struct ImageEditView: View {
     }
 }
 
-struct EVPointView: View {
-    var id = UUID()
-    var location: CGPoint = CGPoint(x: 50, y: 50)
+struct CustomDraggableComponent: View {
+    @State var height: CGFloat = 200
+    @State var width: CGFloat = 200
+    
+    @State var maxWidth = 512
+    @State var maxHeight = 512
     
     var body: some View {
-        Capsule(style: .continuous)
-            .stroke(.regularMaterial, style: StrokeStyle(lineWidth: 2))
-            .background(Capsule().fill(.ultraThinMaterial))
-            .frame(width: 30, height: 30)
+        GeometryReader { geo in
+            VStack(alignment: .center) {
+                Rectangle()
+                    .fill(.clear)
+                    .border(.black)
+                    .frame(minWidth: width, maxWidth: width, minHeight: height, maxHeight: height)
+                
+                HStack {
+                    Spacer()
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(width: 80, height: 30)
+                        .cornerRadius(10)
+                        .overlay(Text("Drag to crop"))
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    // This code allows resizing view min 200 and max to parent view size
+                                    height = min(max(200, height + value.translation.height), CGFloat(maxHeight)) // 45 for Drag button height + padding
+                                    width = min(max(200, height + value.translation.width), CGFloat(maxHeight))
+                                }
+                        )
+                    Spacer()
+                }
+            } .frame(width: geo.size.width, height: geo.size.height)
+        }
     }
 }
 
