@@ -63,7 +63,7 @@ struct CustomDraggableComponent: View {
                         .fill(Color.gray)
                         .frame(width: 80, height: 30)
                         .cornerRadius(10)
-                        .overlay(Text("Drag to crop"))
+                        .overlay(Text("Drag"))
                         .gesture(
                             DragGesture()
                                 .onChanged { value in

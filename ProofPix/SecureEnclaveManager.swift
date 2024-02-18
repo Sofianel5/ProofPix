@@ -120,4 +120,23 @@ class SecureEnclaveManager {
         
         return signature
     }
+    
+    func exportPubKey() throws -> Data? {
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(keyQuery as CFDictionary, &item)
+        guard status == errSecSuccess else {
+            print("Failed to retrieve pub key")
+            return nil
+        }
+        guard let publicKey = SecKeyCopyPublicKey(item as! SecKey) else {
+            // Handle the error here
+            print("Failed to retrieve public key")
+            return nil
+        }
+        var error: Unmanaged<CFError>?
+        guard let data = SecKeyCopyExternalRepresentation(publicKey, &error) as? Data else {
+            throw error!.takeRetainedValue() as Error
+        }
+        return data
+    }
 }
