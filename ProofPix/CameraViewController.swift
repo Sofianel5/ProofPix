@@ -195,3 +195,9 @@ extension CGImage {
         return context.makeImage()
     }
 }
+
+extension UIImage {
+    var base64: String? {
+        self.jpegData(compressionQuality: 1)?.base64EncodedString()
+    }
+}

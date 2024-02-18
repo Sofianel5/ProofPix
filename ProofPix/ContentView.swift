@@ -10,6 +10,7 @@ import CoreData
 
 class ImageCaptureViewModel: ObservableObject {
     @Published var capturedImage: UIImage?
+    @Published var signature: Data?
 
     let cameraVC = CameraViewController()
 
@@ -17,6 +18,10 @@ class ImageCaptureViewModel: ObservableObject {
         cameraVC.capturePhoto(captureCompletion: { [weak self] image, error in
             DispatchQueue.main.async {
                 self?.capturedImage = image
+                if let signableImage = self?.capturedImage {
+                    self?.signature = SecureEnclaveManager.shared.sign(message: signableImage.base64!)
+                    print("Signed image")
+                }
             }
         })
     }
