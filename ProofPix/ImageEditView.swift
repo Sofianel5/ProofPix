@@ -15,6 +15,9 @@ struct ImageEditView: View {
     @State private var evPointLocation: CGPoint = CGPoint()
     @State private var imageFrame = CGRect()
     
+    @State private var croppingHeight: CGFloat = 200
+    @State private var croppingWidth: CGFloat = 200
+    
     var body: some View {
         VStack {
             Spacer()
@@ -24,13 +27,20 @@ struct ImageEditView: View {
                     Image(uiImage: viewModel.capturedImage ?? UIImage())
                         .resizable()
                         .scaledToFit()
-                    CustomDraggableComponent(height: (viewModel.capturedImage ?? UIImage()).size.height, width: (viewModel.capturedImage ?? UIImage()).size.width)
+                    CustomDraggableComponent(height: $croppingHeight, width: $croppingWidth)
                 }
                 Spacer()
             }
             Spacer()
             Button(action: {
                 print("Certify Image")
+                do {
+                    ProverManager.shared.proveImage(signature: viewModel.signature, image: viewModel.capturedImage?.jpegData(compressionQuality: 1), publicKey: try SecureEnclaveManager.shared.exportPubKey(), croppingHeight: Int32(croppingHeight), croppingWidth: Int32(croppingWidth))
+                    
+                } catch {
+                    print("Failed")
+                }
+                
             }) {
                 Text("Certify Image")
                     .foregroundColor(.white)
@@ -43,9 +53,9 @@ struct ImageEditView: View {
 }
 
 struct CustomDraggableComponent: View {
-    @State var height: CGFloat = 200
-    @State var width: CGFloat = 200
-    
+    @Binding var height: CGFloat
+    @Binding var width: CGFloat
+
     @State var maxWidth = 512
     @State var maxHeight = 512
     
@@ -67,9 +77,10 @@ struct CustomDraggableComponent: View {
                         .gesture(
                             DragGesture()
                                 .onChanged { value in
-                                    // This code allows resizing view min 200 and max to parent view size
-                                    height = min(max(200, height + value.translation.height), CGFloat(maxHeight)) // 45 for Drag button height + padding
-                                    width = min(max(200, height + value.translation.width), CGFloat(maxHeight))
+                                    let newHeight = height + value.translation.height
+                                    let newWidth = width + value.translation.width
+                                    height = min(max(200, newHeight), CGFloat(maxHeight))
+                                    width = min(max(200, newWidth), CGFloat(maxHeight))
                                 }
                         )
                     Spacer()

@@ -13,23 +13,30 @@ class ProverManager {
     
     let url = URL(string: "http://3.231.228.92:9999")!;
     
-    func proveImage(signature: Data?, image: Data?, publicKey: Data?) {
+    func proveImage(signature: Data?, image: Data?, publicKey: Data?, croppingHeight: Int32, croppingWidth: Int32) {
+        print("Attempting to prove...")
         let request = MultipartFormDataRequest(url: url)
         
         guard let providedSignature = signature, let img_buffer = image, let providedPublicKey = publicKey else {
             return
         }
         request.addDataField(named: "img_buffer", data: img_buffer, mimeType: "img/jpeg")
-        request.addTextField(named: "transformations", value: "[]")
+        
+        let croppingX = Int((512 - croppingWidth) / 2)
+        let croppingY = Int((512 - croppingHeight) / 2)
+        request.addTextField(named: "transformations", value: "[{\"Crop\":{\"x\":\(croppingX),\"y\":\(croppingY),\"height\":\(croppingHeight),\"width\":\(croppingWidth)}}]")
         request.addTextField(named: "signature", value: providedSignature.base64EncodedString())
         request.addTextField(named: "public_key", value: providedPublicKey.base64EncodedString())
         
         URLSession.shared.dataTask(with: request, completionHandler: {data,response,error in
-            if let error {
+            print("Callback...")
+            if error != nil {
+                print("Error!")
                 return
             }
             PersistenceController.shared.saveURL(url: String(decoding: data!, as: UTF8.self))
         }).resume()
+        print("Sent!")
     }
 }
 
