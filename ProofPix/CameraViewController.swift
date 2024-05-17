@@ -20,7 +20,7 @@ class CameraViewController: UIViewController {
     private let photoOutput = AVCapturePhotoOutput()
     var screenRect: CGRect! = nil // For view dimensions
     var captureCompletion: CaptureCompletion? = nil
-      
+    
     override func viewDidLoad() {
         checkPermission()
         

@@ -12,11 +12,13 @@ import AVFoundation
 struct ImageEditView: View {
     
     @EnvironmentObject private var viewModel: ImageCaptureViewModel
+    @Environment(\.presentationMode) var presentation
     @State private var evPointLocation: CGPoint = CGPoint()
     @State private var imageFrame = CGRect()
     
     @State private var croppingHeight: CGFloat = 200
     @State private var croppingWidth: CGFloat = 200
+    @State private var showAlert = false
     
     var body: some View {
         VStack {
@@ -36,7 +38,8 @@ struct ImageEditView: View {
                 print("Certify Image")
                 do {
                     ProverManager.shared.proveImage(signature: viewModel.signature, image: viewModel.capturedImage?.jpegData(compressionQuality: 1), publicKey: try SecureEnclaveManager.shared.exportPubKey(), croppingHeight: Int32(croppingHeight), croppingWidth: Int32(croppingWidth))
-                    
+                    showAlert = true
+                    self.presentation.wrappedValue.dismiss()
                 } catch {
                     print("Failed")
                 }
@@ -48,6 +51,12 @@ struct ImageEditView: View {
                     .background(Color.blue)
                     .cornerRadius(8)
             }.padding()
+                .alert(isPresented: $showAlert) {
+                        Alert(
+                            title: Text("Image uploaded for certification"),
+                            message: Text("Others will be able to trust your photo soon...")
+                        )
+                    }
         }
     }
 }
