@@ -11,6 +11,7 @@ struct PersistenceController {
     static let shared = PersistenceController()
     
     let container: NSPersistentContainer
+    let defaults = UserDefaults.standard
     
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "ProofPix")
@@ -47,5 +48,21 @@ struct PersistenceController {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
+    }
+    
+    func saveAttestation(attestation: Data) {
+        defaults.set(attestation, forKey: "attestation")
+    }
+    
+    func saveKeyId(keyId: Data) {
+        defaults.set(keyId, forKey: "keyId")
+    }
+    
+    func setAttested() {
+        defaults.set(true, forKey: "attested")
+    }
+    
+    func isAttested() -> Bool {
+        return defaults.bool(forKey: "attested")
     }
 }

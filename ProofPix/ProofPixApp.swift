@@ -10,14 +10,16 @@ import SwiftUI
 @main
 struct ProofPixApp: App {
     let persistenceController = PersistenceController.shared
-    let secureEnclaveManager = SecureEnclaveManager()
+    let authenticityManager = AuthenticityManager.shared
+    let secureEnclaveManager = SecureEnclaveManager.shared
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .onAppear(){
-                    SecureEnclaveManager.shared.generateAsymmetricKeyPairIfNeeded()
+                    secureEnclaveManager.generateAsymmetricKeyPairIfNeeded()
+                    authenticityManager.setupIfNeeded()
                 }
         }
     }

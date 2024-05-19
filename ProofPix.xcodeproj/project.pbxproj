@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D87AD9012BF75E3500EB508D /* AppAttestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AD9002BF75E3500EB508D /* AppAttestManager.swift */; };
+		D87AD9032BF7640100EB508D /* AuthenticityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AD9022BF7640100EB508D /* AuthenticityManager.swift */; };
 		D8BAF6EC2B807E5400704DCA /* ProofPixApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF6EB2B807E5400704DCA /* ProofPixApp.swift */; };
 		D8BAF6EE2B807E5400704DCA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BAF6ED2B807E5400704DCA /* ContentView.swift */; };
 		D8BAF6F02B807E5600704DCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8BAF6EF2B807E5600704DCA /* Assets.xcassets */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		D87AD9002BF75E3500EB508D /* AppAttestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAttestManager.swift; sourceTree = "<group>"; };
+		D87AD9022BF7640100EB508D /* AuthenticityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticityManager.swift; sourceTree = "<group>"; };
 		D8BAF6E82B807E5400704DCA /* ProofPix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProofPix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8BAF6EB2B807E5400704DCA /* ProofPixApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProofPixApp.swift; sourceTree = "<group>"; };
 		D8BAF6ED2B807E5400704DCA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				D8BAF6EB2B807E5400704DCA /* ProofPixApp.swift */,
 				D8BAF71D2B80C8C700704DCA /* SecureEnclaveManager.swift */,
 				D87AD9002BF75E3500EB508D /* AppAttestManager.swift */,
+				D87AD9022BF7640100EB508D /* AuthenticityManager.swift */,
 				D8BAF6ED2B807E5400704DCA /* ContentView.swift */,
 				D8E030C72B81881200ED6325 /* ImageEditView.swift */,
 				D8E030C92B81DA0E00ED6325 /* ProverManager.swift */,
@@ -288,6 +291,7 @@
 				D87AD9012BF75E3500EB508D /* AppAttestManager.swift in Sources */,
 				D8BAF6EC2B807E5400704DCA /* ProofPixApp.swift in Sources */,
 				D8BAF71C2B80853400704DCA /* CameraViewController.swift in Sources */,
+				D87AD9032BF7640100EB508D /* AuthenticityManager.swift in Sources */,
 				D8E030CA2B81DA0E00ED6325 /* ProverManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

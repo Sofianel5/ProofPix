@@ -10,6 +10,8 @@ import DeviceCheck
 
 class AppAttestManager {
     
+    static let shared = AppAttestManager();
+    
     private var keyId: String?;
     private var attestation: Data?;
     private let service = DCAppAttestService.shared
@@ -27,12 +29,21 @@ class AppAttestManager {
         }
     }
     
-    func attestKey(hash: Data) {
+    func isReady() -> Bool {
+        return self.keyId != nil;
+    }
+    
+    func attestKey(hash: Data, callBack: @escaping (Data) -> Void) {
         if let keyId {
             service.attestKey(keyId, clientDataHash: hash) { attestation, error in
                 guard error == nil else { return }
                 self.attestation = attestation
+                callBack(attestation!)
             }
         }
+    }
+    
+    func getAttestation() -> Data? {
+        return self.attestation;
     }
 }
